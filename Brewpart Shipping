@@ -1,0 +1,9 @@
+SELECT shipments.our_number, consignees.`Site Name`, employees.FirstName, shipments.DateFilled, shipments.content, shipments.other_note, shippers.name, shipments.tracking_number, shipments.DeliveryPickup
+FROM shipments
+INNER JOIN consignees ON shipments.consignee_id = consignees.id
+INNER JOIN employees ON shipments.employee_id = employees.id
+INNER JOIN shippers ON shipments.shipper_id = shippers.id
+[[WHERE UPPER(shippers.name) LIKE UPPER(CONCAT('%', {{ShippingMethod}},'%'))]]
+[[AND UPPER(shipments.content) LIKE UPPER(CONCAT('%', {{ShippingContent}},'%'))]]
+[[AND UPPER(consignees.`Site Name`) LIKE UPPER(CONCAT('%', {{Consignee}},'%'))]]
+[[AND UPPER(shipments.tracking_number) LIKE UPPER(CONCAT('%', {{TrackingNumber}},'%'))]]
